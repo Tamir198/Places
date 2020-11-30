@@ -19,25 +19,30 @@ class PlacesListScreen extends StatelessWidget {
       ),
       body: Center(
         //Fist param child is what not to change
-          child: Consumer<UserPlacesProvider>(
-              child: Center(child: const Text('Start adding some places')),
-              builder: (context, dataFromProvider, child) =>
-              dataFromProvider.items.length <= 0
-                  ? child
-                  : ListView.builder(
-                  itemCount: dataFromProvider.items.length,
-                  itemBuilder: (BuildContext context, int index) =>
-                  //Another way to display image that saved on a file
-                  ListTile(
-                    leading: CircleAvatar(backgroundImage: FileImage(
-                        dataFromProvider.items[index].image)
-                    ),
-                    title: Text(dataFromProvider.items[index].title),
-                    onTap: (){
-                      //todo go to detail place
-                    },
-                  )
-              )
+          child: FutureBuilder(
+            future: Provider.of<UserPlacesProvider>(context, listen: false).getPlacesData(),
+            builder: (context, res) => res.connectionState == ConnectionState.waiting
+                ? Center(child: CircularProgressIndicator())
+                : Consumer<UserPlacesProvider>(
+                child: Center(child: const Text('Start adding some places')),
+                builder: (context, dataFromProvider, child) =>
+                dataFromProvider.items.length <= 0
+                    ? child
+                    : ListView.builder(
+                    itemCount: dataFromProvider.items.length,
+                    itemBuilder: (BuildContext context, int index) =>
+                    //Another way to display image that saved on a file
+                    ListTile(
+                      leading: CircleAvatar(backgroundImage: FileImage(
+                          dataFromProvider.items[index].image)
+                      ),
+                      title: Text(dataFromProvider.items[index].title),
+                      onTap: (){
+                        //todo go to detail place
+                      },
+                    )
+                )
+            ),
           )
       ),
     );
