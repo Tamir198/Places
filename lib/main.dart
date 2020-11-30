@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider.value(
-      value: UserPlaces(),
+      value: UserPlacesProvider(),
       child: MaterialApp(
         title: 'Great Places',
         theme: ThemeData(

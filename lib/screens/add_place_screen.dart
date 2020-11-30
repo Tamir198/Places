@@ -1,6 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/providers/user_places.dart';
 import 'package:flutter_app/widgets/image_input_widget.dart';
+import 'package:provider/provider.dart';
 
 class AddPlaceScreen extends StatefulWidget {
   static const String routName = '/addPlaceRout';
@@ -10,7 +14,27 @@ class AddPlaceScreen extends StatefulWidget {
 }
 
 class _AddPlaceScreenState extends State<AddPlaceScreen> {
+
   final TextEditingController _titleController = TextEditingController();
+  File _pickedImage;
+
+  void _selectImage(File pickedImage){
+    _pickedImage = pickedImage;
+  }
+
+  void _savePlace(){
+    //if invalid input
+    if(_titleController.text.isEmpty || _pickedImage == null){
+      return;
+    }
+    Provider.of<UserPlacesProvider>(context, listen: false).addPlace( _pickedImage, _titleController.text);
+    Navigator.of(context).pop();
+  }
+
+
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +53,7 @@ class _AddPlaceScreenState extends State<AddPlaceScreen> {
                       controller: _titleController
                     ),
                     SizedBox(height: 10),
-                    ImageInputWidget(),
+                    ImageInputWidget(_selectImage),
                   ],
                 ),
               ),
@@ -41,7 +65,9 @@ class _AddPlaceScreenState extends State<AddPlaceScreen> {
                 elevation: 0,
                 color: Theme.of(context).accentColor,
                 materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                onPressed: () {})
+                onPressed: () {
+                  _savePlace();
+                })
           ],
         ));
   }

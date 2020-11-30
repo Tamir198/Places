@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/providers/user_places.dart';
 import 'package:flutter_app/screens/add_place_screen.dart';
+import 'package:provider/provider.dart';
 
 class PlacesListScreen extends StatelessWidget {
   @override
@@ -16,7 +18,27 @@ class PlacesListScreen extends StatelessWidget {
         ],
       ),
       body: Center(
-        child: CircularProgressIndicator(),
+        //Fist param child is what not to change
+          child: Consumer<UserPlacesProvider>(
+              child: Center(child: const Text('Start adding some places')),
+              builder: (context, dataFromProvider, child) =>
+              dataFromProvider.items.length <= 0
+                  ? child
+                  : ListView.builder(
+                  itemCount: dataFromProvider.items.length,
+                  itemBuilder: (BuildContext context, int index) =>
+                  //Another way to display image that saved on a file
+                  ListTile(
+                    leading: CircleAvatar(backgroundImage: FileImage(
+                        dataFromProvider.items[index].image)
+                    ),
+                    title: Text(dataFromProvider.items[index].title),
+                    onTap: (){
+                      //todo go to detail place
+                    },
+                  )
+              )
+          )
       ),
     );
   }
