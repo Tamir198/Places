@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/providers/user_places.dart';
 import 'package:flutter_app/widgets/image_input_widget.dart';
+import 'package:flutter_app/widgets/location_input_widget.dart';
 import 'package:provider/provider.dart';
 
 class AddPlaceScreen extends StatefulWidget {
@@ -32,11 +33,10 @@ class _AddPlaceScreenState extends State<AddPlaceScreen> {
   }
 
 
-
-
-
   @override
   Widget build(BuildContext context) {
+    SizedBox customSizedBox = SizedBox(height: 10);
+
     return Scaffold(
         appBar: AppBar(title: Text('Add a new place')),
         body: Column(
@@ -52,8 +52,10 @@ class _AddPlaceScreenState extends State<AddPlaceScreen> {
                       decoration: InputDecoration(labelText: 'title'),
                       controller: _titleController
                     ),
-                    SizedBox(height: 10),
+                    customSizedBox,
                     ImageInputWidget(_selectImage),
+                    customSizedBox,
+                    LocationInputWidget(),
                   ],
                 ),
               ),
