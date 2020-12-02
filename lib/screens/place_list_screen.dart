@@ -37,6 +37,7 @@ class PlacesListScreen extends StatelessWidget {
                           dataFromProvider.items[index].image)
                       ),
                       title: Text(dataFromProvider.items[index].title),
+                      subtitle: Text(dataFromProvider.items[index].location.address ?? 'Default value'),
                       onTap: (){
                         //todo go to detail place
                       },
