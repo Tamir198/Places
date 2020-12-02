@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/models/place_location.dart';
 import 'package:flutter_app/providers/user_places.dart';
 import 'package:flutter_app/widgets/image_input_widget.dart';
 import 'package:flutter_app/widgets/location_input_widget.dart';
@@ -18,17 +19,22 @@ class _AddPlaceScreenState extends State<AddPlaceScreen> {
 
   final TextEditingController _titleController = TextEditingController();
   File _pickedImage;
+  PlaceLocation _pickedLocation;
 
   void _selectImage(File pickedImage){
     _pickedImage = pickedImage;
   }
 
+  void _selectPlace(double latitude, double longitude) {
+    _pickedLocation = PlaceLocation(latitude: latitude, longitude: longitude);
+  }
+
   void _savePlace(){
     //if invalid input
-    if(_titleController.text.isEmpty || _pickedImage == null){
+    if(_titleController.text.isEmpty || _pickedImage == null || _pickedLocation == null){
       return;
     }
-    Provider.of<UserPlacesProvider>(context, listen: false).addPlace( _pickedImage, _titleController.text);
+    Provider.of<UserPlacesProvider>(context, listen: false).addPlace( _pickedImage, _titleController.text, _pickedLocation);
     Navigator.of(context).pop();
   }
 
@@ -55,7 +61,7 @@ class _AddPlaceScreenState extends State<AddPlaceScreen> {
                     customSizedBox,
                     ImageInputWidget(_selectImage),
                     customSizedBox,
-                    LocationInputWidget(),
+                    LocationInputWidget(_selectPlace),
                   ],
                 ),
               ),
