@@ -1,8 +1,6 @@
 This is an app that was created while learning flutter course online.
 -
 
----
-
 If you want to run your app you will need to:
 -
 
