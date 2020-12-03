@@ -50,8 +50,11 @@ class _MapScreenState extends State<MapScreen> {
           onTap: (LatLng latLng){
             widget.isSelecting ? selectPlace(latLng) : null;
           },
-        markers: pickedLocation==null ? null : {
-            Marker(markerId: MarkerId('Marker1'),position: pickedLocation)
+        markers: (pickedLocation==null && widget.isSelecting) ? null : {
+            Marker(
+                markerId: MarkerId('Marker1'),
+                position: pickedLocation ?? LatLng(widget.initLocation.latitude, widget.initLocation.longitude)
+            )
         },
           myLocationEnabled: true,
       )

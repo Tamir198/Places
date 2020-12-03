@@ -55,5 +55,9 @@ class UserPlacesProvider with ChangeNotifier{
     notifyListeners();
   }
 
+  Place findPlaceById(String id){
+    return _items.firstWhere((place) => place.id  == id);
+  }
+
 
 }
