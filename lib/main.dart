@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/providers/user_places.dart';
-import 'package:flutter_app/screens/add_place_screen.dart';
-import 'package:flutter_app/screens/place_list_screen.dart';
+
 import 'package:provider/provider.dart';
+
+import 'providers/user_places.dart';
+import 'screens/add_place_screen.dart';
+import 'screens/place_detail_screen.dart';
+import 'screens/place_list_screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -19,7 +22,8 @@ class MyApp extends StatelessWidget {
         ),
         home: PlacesListScreen(),
         routes:{
-          AddPlaceScreen.routName : (context) => AddPlaceScreen()
+          AddPlaceScreen.routName : (context) => AddPlaceScreen(),
+          PlaceDetailsScreen.routName : (context) => PlaceDetailsScreen()
         }
       ),
     );

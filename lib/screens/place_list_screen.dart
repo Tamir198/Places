@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/providers/user_places.dart';
-import 'package:flutter_app/screens/add_place_screen.dart';
 import 'package:provider/provider.dart';
+
+import '../providers/user_places.dart';
+import '../screens/add_place_screen.dart';
+import '../screens/place_detail_screen.dart';
 
 class PlacesListScreen extends StatelessWidget {
   @override
@@ -37,8 +39,11 @@ class PlacesListScreen extends StatelessWidget {
                           dataFromProvider.items[index].image)
                       ),
                       title: Text(dataFromProvider.items[index].title),
+                      subtitle: Text(dataFromProvider.items[index].location.address ?? 'Default value'),
                       onTap: (){
-                        //todo go to detail place
+                        Navigator.of(context).pushNamed(
+                            PlaceDetailsScreen.routName, arguments: dataFromProvider.items[index].id
+                        );
                       },
                     )
                 )
