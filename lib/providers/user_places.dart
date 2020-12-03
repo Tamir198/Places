@@ -1,10 +1,9 @@
 import 'dart:io';
-
 import 'package:flutter/foundation.dart';
-import 'package:flutter_app/helpers/SQL_helper.dart';
-import 'package:flutter_app/helpers/map_helper.dart';
-import 'package:flutter_app/models/place_location.dart';
 
+import '../helpers/SQL_helper.dart';
+import '../helpers/map_helper.dart';
+import '../models/place_location.dart';
 import '../models/place.dart';
 
 class UserPlacesProvider with ChangeNotifier{
@@ -15,6 +14,7 @@ class UserPlacesProvider with ChangeNotifier{
 
   Future<void> addPlace(File image, String title, PlaceLocation pickedLocation)async {
     final String readableAddress = await MapHelper.getPlaceAddress(pickedLocation.latitude, pickedLocation.longitude);
+
     final Place newPlace = Place(
         id: DateTime.now().toString(),
         title: title,
@@ -24,6 +24,7 @@ class UserPlacesProvider with ChangeNotifier{
             address: readableAddress
         ),
         image: image);
+
     _items.add(newPlace);
     notifyListeners();
 
@@ -39,7 +40,8 @@ class UserPlacesProvider with ChangeNotifier{
 
   //Getting the data from local db
   Future<void> getPlacesData() async {
-    final List<Map<String, Object>> data = await SQLHelper.getData('user_places');
+    final List<Map<String, Object>> data = await SQLHelper.getTableData('user_places');
+
     _items = data.map(
             (item) => Place(
                 id: item['id'],
@@ -58,6 +60,5 @@ class UserPlacesProvider with ChangeNotifier{
   Place findPlaceById(String id){
     return _items.firstWhere((place) => place.id  == id);
   }
-
 
 }

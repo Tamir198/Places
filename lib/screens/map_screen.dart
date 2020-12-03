@@ -1,14 +1,15 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_app/models/place_location.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+
+
+import '../models/place_location.dart';
 
 class MapScreen extends StatefulWidget {
   final PlaceLocation initLocation;
   final bool isSelecting;
 
   //Constructor with default values
+  //Todo give default values as current location
   const MapScreen({
     this.initLocation = const PlaceLocation(latitude: 31.795261540860697, longitude: 34.704558216642646),
     this.isSelecting = false}
@@ -37,8 +38,6 @@ class _MapScreenState extends State<MapScreen> {
           onPressed: pickedLocation==null ? null : (){
             Navigator.of(context).pop(pickedLocation);
           },)
-
-
       ]),
       body: GoogleMap(
           initialCameraPosition: CameraPosition(
