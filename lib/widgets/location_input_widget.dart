@@ -40,8 +40,6 @@ class _LocationInputWidgetState extends State<LocationInputWidget> {
 
   }
 
-
-
   Future<void> _pickMapLocation() async {
     final LatLng selectedLocation = await Navigator.of(context).push<LatLng>(
         MaterialPageRoute(
@@ -55,8 +53,6 @@ class _LocationInputWidgetState extends State<LocationInputWidget> {
     showMapPreview(selectedLocation.latitude, selectedLocation.longitude);
     widget.onSelectPlace(selectedLocation.latitude,selectedLocation.longitude);
   }
-
-
 
 
   @override

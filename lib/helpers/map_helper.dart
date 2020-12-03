@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 //String googleApiKey = 'YOUR GOOGLE MAPS API KEY';
-String googleApiKey = 'YOUR KEY HERE';
+String googleApiKey = 'YOUR GOOGLE MAPS API KEY';
 
 class MapHelper{
 
