@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/helpers/map_helper.dart';
-import 'package:flutter_app/screens/map_screen.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+
+import '../helpers/map_helper.dart';
+import '../screens/map_screen.dart';
 
 class LocationInputWidget extends StatefulWidget {
 
@@ -62,13 +63,16 @@ class _LocationInputWidgetState extends State<LocationInputWidget> {
     return Column(children: [
       Container(
           alignment: Alignment.center,
-          height: mediaQuery.height * 0.30,
+          height: mediaQuery.height*0.30,
           decoration: BoxDecoration(border: Border.all(width: 1, color: Colors.grey)),
           width: double.infinity,
           child: _previewLocationImageUrl == null
               ? Text('No location chosen', textAlign: TextAlign.center)
-              : Image.network(_previewLocationImageUrl,
-              fit: BoxFit.cover, width: double.infinity)
+              : Image.network(
+              _previewLocationImageUrl
+              , fit: BoxFit.cover,
+              width: double.infinity
+          )
       ),
       Row(
         mainAxisAlignment: MainAxisAlignment.center,

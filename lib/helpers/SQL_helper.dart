@@ -14,12 +14,12 @@ class SQLHelper{
   }
 
   static Future<void> insertDB(String table,Map<String,Object> data) async {
-    //sql.ConflictAlgorithm.replace = for the same entry, override existing data with new one
     final sql.Database db = await SQLHelper.database();
+    //For the same entry in the db existing data will get overridden with new one
     return db.insert(table, data,conflictAlgorithm: sql.ConflictAlgorithm.replace);
   }
 
-  static Future<List<Map<String, Object>>> getData(String table) async{
+  static Future<List<Map<String, Object>>> getTableData(String table) async{
     final sql.Database db = await SQLHelper.database();
     //get the data with .query
     return db.query(table);
